@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Source Verifier",
+  "version": "1.0",
+  "description": "Verify highlighted claims against a specific source URL.",
+  "permissions": ["sidePanel", "activeTab", "contextMenus", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "action": {
+    "default_title": "Open Verifier"
+  }
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: sans-serif; padding: 10px; }
+    textarea { width: 100%; height: 80px; margin-bottom: 10px; }
+    input { width: 100%; padding: 5px; margin-bottom: 10px; }
+    button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+    #result { margin-top: 15px; padding: 10px; background: #f0f0f0; display: none; }
+    .valid { border-left: 5px solid green; }
+    .invalid { border-left: 5px solid red; }
+  </style>
+</head>
+<body>
+  <h3>Claim to Verify:</h3>
+  <textarea id="claimBox"></textarea>
+
+  <h3>Source URL:</h3>
+  <input type="text" id="sourceUrl" placeholder="Paste verification link here...">
+
+  <button id="verifyBtn">Check Source</button>
+
+  <div id="result"></div>
+
+  <script src="readability.js"></script> <!-- Download this library -->
+  <script src="panel.js"></script>
+</body>
+</html>
