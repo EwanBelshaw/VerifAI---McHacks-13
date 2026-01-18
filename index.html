@@ -82,6 +82,14 @@
       color: var(--primary-foreground);
     }
 
+    .logo-icon img {
+      width: 180%;
+      background: hsl(40, 35%, 97%);
+      height: 180%;
+      display: block;
+    }
+
+
     .logo-text h1 {
       font-size: 1.5rem;
       color: var(--foreground);
@@ -209,6 +217,7 @@
 
     .input-field {
       flex: 1;
+      width: 100%;
       padding: 0.75rem;
       border: 1px solid var(--input);
       border-radius: var(--radius);
@@ -359,9 +368,7 @@
   <div class="header">
     <div class="header-logo">
       <div class="logo-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-        </svg>
+        <img src="logo1.svg" alt="Logo" />
       </div>
       <div class="logo-text">
         <h1>VerifAI Source Verifier</h1>
@@ -447,7 +454,6 @@
   </div>
 </div>
 
-<script type="module" src="panel.js"></script>
 <script src="libs/pdf.min.js"></script>
 <script>
   if (typeof pdfjsLib !== 'undefined') {
@@ -456,6 +462,9 @@
 </script>
 <script src="libs/mammoth.browser.min.js"></script>
 <script src="libs/tesseract.min.js"></script>
+<script src="readability.js"></script>
+<script src="config.js"></script>
+<script src="panel.js"></script>
 
 </body>
 </html>

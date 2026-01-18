@@ -11,9 +11,11 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "verifyClaim") {
     // Save the text to storage so the panel can read it
-    chrome.storage.local.set({ "pendingClaim": info.selectionText });
-    
-    // Opens the side panel
-    chrome.sidePanel.open({ tabId: tab.id });
+    chrome.storage.local.set({ "pendingClaim": info.selectionText }, () => {
+      // Opens the side panel after storage is set
+      chrome.sidePanel.open({ tabId: tab.id }).catch(err => {
+        console.error('Error opening side panel:', err);
+      });
+    });
   }
 });

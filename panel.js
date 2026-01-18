@@ -1,4 +1,4 @@
-import { CONFIG } from './config.js';
+const CONFIG = window.CONFIG || { OPENAI_API_KEY: '' };
 
 // STATE MANAGEMENT
 
