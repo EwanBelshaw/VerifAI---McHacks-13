@@ -1,5 +1,22 @@
 {
+  "name": "verifai---mchacks-13",
+  "version": "1.0.0",
+  "description": "AI-powered fact verification browser extension",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"No tests configured yet\"",
+    "dev": "npx http-server -p 8080 -o",
+    "lint": "echo \"Linting extension files...\"",
+    "build": "echo \"Building extension for production...\"",
+    "validate": "node validate-extension.js"
+  },
+  "keywords": ["fact-check", "ai", "verification", "browser-extension"],
+  "author": "Your Name",
+  "license": "MIT",
   "dependencies": {
     "@mozilla/readability": "^0.6.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }
