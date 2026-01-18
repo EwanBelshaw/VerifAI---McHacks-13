@@ -1,4 +1,4 @@
-const CONFIG = window.CONFIG || { GEMINI_API_KEY: '' };
+const CONFIGURE = window.CONFIG || { GEMINI_API_KEY: '' };
 
 // STATE MANAGEMENT
 
@@ -280,8 +280,7 @@ Format your response as:
     const userPrompt = `CLAIM: ${claim}\n\nSOURCE TEXTS:\n${combinedSourceText}`;
 
     // Gemini API endpoint
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${CONFIG.GEMINI_API_KEY}`;
-
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${CONFIGURE.GEMINI_API_KEY}`;
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {

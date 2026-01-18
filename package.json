@@ -10,10 +10,16 @@
     "build": "echo \"Building extension for production...\"",
     "validate": "node validate-extension.js"
   },
-  "keywords": ["fact-check", "ai", "verification", "browser-extension"],
+  "keywords": [
+    "fact-check",
+    "ai",
+    "verification",
+    "browser-extension"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
+    "@google/genai": "^1.37.0",
     "@mozilla/readability": "^0.6.0"
   },
   "devDependencies": {
