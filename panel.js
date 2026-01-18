@@ -1,4 +1,4 @@
-const CONFIG = window.CONFIG || { OPENAI_API_KEY: '' };
+const CONFIG = window.CONFIG || { GEMINI_API_KEY: '' };
 
 // STATE MANAGEMENT
 
@@ -264,18 +264,7 @@ async function verifyClaimWithAI(claim, sources) {
         .join('\n\n=== NEXT SOURCE ===\n\n')
         .substring(0, 100000); // Limit to prevent token overflow
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${CONFIG.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4",
-        messages: [
-          {
-            role: "system",
-            content: `You are a professional fact-checker. You will be given a CLAIM and SOURCE TEXTS from various documents and websites.
+    const systemPrompt = `You are a professional fact-checker. You will be given a CLAIM and SOURCE TEXTS from various documents and websites.
 
 Your job is to:
 1. Carefully analyze whether the SOURCE TEXTS support, contradict, or are insufficient to verify the CLAIM
@@ -286,32 +275,62 @@ Your job is to:
 Format your response as:
 **Verdict:** [Your verdict]
 
-**Explanation:** [Your detailed explanation]`
-          },
+**Explanation:** [Your detailed explanation]`;
+
+    const userPrompt = `CLAIM: ${claim}\n\nSOURCE TEXTS:\n${combinedSourceText}`;
+
+    // Gemini API endpoint
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${CONFIG.GEMINI_API_KEY}`;
+
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        contents: [
           {
-            role: "user",
-            content: `CLAIM: ${claim}\n\nSOURCE TEXTS:\n${combinedSourceText}`
+            parts: [
+              {
+                text: systemPrompt + "\n\n" + userPrompt
+              }
+            ]
           }
         ],
-        temperature: 0.3,
-        max_tokens: 500
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: 500,
+          topP: 0.95,
+          topK: 40
+        }
       })
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
+      console.error('Gemini API Error:', errorData);
       throw new Error(errorData.error?.message || `API request failed: ${response.status}`);
     }
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    console.log('Gemini API Response:', data);
+
+    // Extract text from Gemini's response format
+    if (data.candidates &&
+        data.candidates.length > 0 &&
+        data.candidates[0].content &&
+        data.candidates[0].content.parts &&
+        data.candidates[0].content.parts.length > 0) {
+      return data.candidates[0].content.parts[0].text;
+    } else {
+      throw new Error('Unexpected API response format');
+    }
 
   } catch (error) {
     console.error('AI verification error:', error);
     throw error;
   }
 }
-
 
 // UI UPDATES
 
