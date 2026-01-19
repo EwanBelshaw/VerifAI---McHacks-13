@@ -97,3 +97,6 @@ OpenAI GPT-4 API
 - **API Keys**: Never commit your config.js file (included in .gitignore)
 - **Data Privacy**: All processing happens client-side; only claims and source text are sent to OpenAI
 - **No Data Storage**: No personal data is stored on external servers
+
+## Screenshots 
+<img width="872" height="887" alt="image" src="https://github.com/user-attachments/assets/4d3268bd-d45f-4053-a5f4-565d8767cb0c" />
